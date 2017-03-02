@@ -1,0 +1,27 @@
+{
+  "name": "Labelmaker 1000",
+  "version": "1.0.0",
+  "manifest_version": 2,
+  "description": "Print Dymo labels from your saved notes on Discogs.com",
+  "homepage_url": "http://www.msalcido.com",
+  "icons": {
+    "128": "icons/icon128.png"
+  },
+  "page_action": {
+    "default_icon": "icons/icon128.png"
+  },
+  "permissions": ["https://*.discogs.com/*"],
+  "content_scripts": [{
+      "matches": ["*://*.discogs.com/*"],
+      "css": ["src/inject/inject.css"]
+    },{
+      "matches": ["*://*.discogs.com/*"],
+      "js": [
+        "src/inject/dymo-framework.js",
+        "src/inject/inject.js"
+      ]
+    }],
+  "web_accessible_resources": [
+    "label/record-label-fields.xml"
+  ]
+}
