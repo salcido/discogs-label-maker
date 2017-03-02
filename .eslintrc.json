@@ -1,6 +1,19 @@
 {
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true
+  },
+  "globals": {
+    "dymo": false,
+    "chrome": false
+  },
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module"
+  },
+  "root": true,
   "rules": {
-    "comma-dangle": [2,"always"],
     "no-cond-assign": [2,"except-parens"],
     "no-constant-condition": 2,
     "no-control-regex": 2,
@@ -41,7 +54,11 @@
     "no-mixed-spaces-and-tabs": [2,"smart-tabs"],
     "constructor-super": 2,
     "no-var": 2,
-    "prefer-const": 1,
-    "prefer-spread": 1
+    "prefer-spread": 1,
+    "no-trailing-spaces": 1,
+    "no-underscore-dangle": 0,
+    "quote-props": [1, "as-needed"],
+    "quotes": [1, "single"],
+    "semi": 1
   }
 }
