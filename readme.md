@@ -4,6 +4,8 @@
 
 `discogs-label-maker` will convert your personal notes for releases in your collection into printable lables (2 1/8" x 4") for the Dymo Labelwriter.
 
+<img src="https://github.com/salcido/discogs-label-maker/blob/master/example.png" alt="Example label" style="width: 300px;"/>
+
 #### Installation
 
 * `git clone https://github.com/salcido/discogs-label-maker.git` (this repository)
