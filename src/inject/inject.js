@@ -139,12 +139,13 @@ chrome.extension.sendMessage({}, function(response) {
 
 	let readyStateCheckInterval = setInterval(function() {
 
-		if (document.readyState === 'complete') {
+		if ( document.readyState === 'complete' ) {
 
 			clearInterval(readyStateCheckInterval);
 
 			// Don't do anything if the release is not in your collection
-			if ([...document.querySelectorAll('.card_in_collection')].length < 1 || !window.location.href.includes('/release/')) {
+			if ( [...document.querySelectorAll('.card_in_collection')].length < 1 || 
+					 !window.location.href.includes('/release/') ) {
 				return;
 			}
 
