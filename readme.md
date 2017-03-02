@@ -2,7 +2,7 @@
 
 #### About
 
-`discogs-label-maker` will convert your personal notes for releases in your collection into `2 1/8" x 4"` printable labels for the Dymo Labelwriter.
+`discogs-label-maker` will convert your personal notes for releases in your collection into `2 1/8" x 4"` printable labels for the Dymo Labelwriter 450/Turbo.
 
 <img src="https://github.com/salcido/discogs-label-maker/blob/master/example.png" alt="Example label" style="width: 200px;"/>
 
