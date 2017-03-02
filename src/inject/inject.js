@@ -152,5 +152,5 @@ chrome.extension.sendMessage({}, function() {
 			injectPreviewLink();
 			attachPreviewListener();
 		}
-	}, 10);
+	}, 10); 
 });
