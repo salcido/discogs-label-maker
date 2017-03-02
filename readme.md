@@ -15,3 +15,7 @@ If you are happy with the label, click it and it will be printed from your Dymo 
 * `git clone https://github.com/salcido/discogs-label-maker.git` (this repository)
 * Change the file path in the `attachPreviewListener` function to point to the `record-label-fields.xml` file on your local machine.
 * Ensure 'Developer mode' is checked in Chrome and click 'Load unpacked extension...', and select the `discogs-label-maker` root folder.
+
+#### Customization
+
+This `xml` template is formatted to fit a `2 1/8" x 4"` sized label. You can either tweak positioning by changing the `Bounds` fields in each `TextObject` or create your own template from scratch. You'll need to update the `Name` values of each `TextObject` to match what's in `inject.js` so the extension knows which fields to populate with the corresponding information.
