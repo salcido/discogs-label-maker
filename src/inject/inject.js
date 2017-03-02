@@ -26,9 +26,9 @@ function insertLabel(data) {
 	let page = document.querySelector('.card_in_collection'),
 			img = document.createElement('img');
 
+	img.id = 'preview';
 	img.src = 'data:image/png;base64,' + data;
 	img.style = 'max-width: 375px; cursor: pointer;';
-	img.id = 'preview';
 
 	page.append(img);
 }
@@ -40,9 +40,9 @@ function insertLabel(data) {
  */
 function injectPreviewLink() {
 
-	let page = document.querySelector('.card_in_collection'),
+	let btn = document.createElement('button'),
 			div = document.createElement('div'),
-			btn = document.createElement('button');
+			page = document.querySelector('.card_in_collection');
 
 	div.className = 'section_content';
 
@@ -87,14 +87,14 @@ function attachPreviewListener() {
 		let // change this path to point to the label on your local machine
 				path = 'file:///path/to/discogs-label-maker/label/record-label-fields.xml',
 				label = dymo.label.framework.openLabelFile(path),
-				release = document.getElementById('profile_title').textContent,
+				artist,
 				existingLabel = document.getElementById('preview'),
 				genrePrompt = prompt('Genre?', genres),
-				notes = document.querySelector('.notes_text').dataset.content,
 				info,
-				artist,
-				title,
-				pngData;
+				notes = document.querySelector('.notes_text').dataset.content,
+				pngData,
+				release = document.getElementById('profile_title').textContent,
+				title;
 
 		// strip whitespace, etc...
 		release = release.replace(/\s{2,}/g,' ');
@@ -135,7 +135,7 @@ function attachPreviewListener() {
 // ========================================================
 // DOM setup
 // ========================================================
-chrome.extension.sendMessage({}, function(response) {
+chrome.extension.sendMessage({}, function() {
 
 	let readyStateCheckInterval = setInterval(function() {
 
@@ -144,7 +144,7 @@ chrome.extension.sendMessage({}, function(response) {
 			clearInterval(readyStateCheckInterval);
 
 			// Don't do anything if the release is not in your collection
-			if ( [...document.querySelectorAll('.card_in_collection')].length < 1 || 
+			if ( [...document.querySelectorAll('.card_in_collection')].length < 1 ||
 					 !window.location.href.includes('/release/') ) {
 				return;
 			}
