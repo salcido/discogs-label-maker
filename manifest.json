@@ -21,7 +21,5 @@
         "src/inject/inject.js"
       ]
     }],
-  "web_accessible_resources": [
-    "label/record-label-fields.xml"
-  ]
+  "web_accessible_resources": []
 }
