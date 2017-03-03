@@ -1,7 +1,7 @@
 // ========================================================
 // Label Template XML
 // ========================================================
-
+ 
 let template = '<?xml version="1.0" encoding="utf-8"?>\
 									<DieCutLabel Version="8.0" Units="twips">\
 										<PaperOrientation>Landscape</PaperOrientation>\
