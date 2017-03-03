@@ -13,9 +13,6 @@
   "permissions": ["https://*.discogs.com/*"],
   "content_scripts": [{
       "matches": ["*://*.discogs.com/*"],
-      "css": ["src/inject/inject.css"]
-    },{
-      "matches": ["*://*.discogs.com/*"],
       "js": [
         "src/inject/dymo-framework.js",
         "src/inject/inject.js"
