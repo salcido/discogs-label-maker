@@ -179,7 +179,7 @@ function insertLabel(data) {
 
   img.id = 'preview';
   img.src = 'data:image/png;base64,' + data;
-  img.style = 'max-width: 100%; cursor: pointer;';
+  img.style = 'width: 100%; cursor: pointer;';
 
   page.append(img);
 }
