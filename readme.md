@@ -13,7 +13,7 @@ If you are happy with the label, click it and it will be printed from your Dymo 
 #### Installation
 
 * `git clone https://github.com/salcido/discogs-label-maker.git` (this repository)
-* Ensure 'Developer mode' is checked in Chrome and click 'Load unpacked extension...' then select the `discogs-label-maker` root folder.
+* Ensure the 'Developer mode' option is checked in Chrome and click 'Load unpacked extension...' then select the `discogs-label-maker` root folder.
 
 #### Customization
 
