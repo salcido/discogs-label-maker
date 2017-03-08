@@ -305,7 +305,7 @@ chrome.extension.sendMessage({}, function() {
       clearInterval(readyStateCheckInterval);
 
       // Don't do anything if the release is not in your collection
-      if ( [...document.querySelectorAll('.card_in_collection')].length < 1 ||
+      if ( [...document.querySelectorAll('.cw_block_collection')].length < 1 ||
            !window.location.href.includes('/release/') ) {
         return;
       }
