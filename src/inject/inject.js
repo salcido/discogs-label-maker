@@ -1,3 +1,8 @@
+// TODO
+// Save "genre" state so subsequent changes to note content do not wipe out
+// any changes to the genre entry
+// ---------------------------------------------------------------------------
+
 // ========================================================
 // Label Template XML
 // ========================================================
