@@ -245,7 +245,6 @@ function attachPreviewListener() {
     let
         artist,
         existingLabel = document.getElementById('preview'),
-        genrePrompt = prompt('Genre?', genres),
         info,
         label = dymo.label.framework.openLabelXml(template),
         notes = document.querySelector('.notes_text').innerHTML,
@@ -260,7 +259,7 @@ function attachPreviewListener() {
     info = release.match(/\S+./g).join('').split('–');
 
     // strip Artist name enumeration
-    info[0] = info[0].replace(/\(\d\)/g, '');
+    info[0] = info[0].replace(/\(\d*\)/g, '');
 
     // strip Artist Name Variation
     info[0] = info[0].replace(/\*/g, '');
@@ -282,9 +281,9 @@ function attachPreviewListener() {
     notes = notes.replace('🎾', '');
     notes = notes.replace(/⭐️/g, '★');
 
-    label.setObjectText('ARTIST', artist);
+    label.setObjectText('ARTIST', prompt('Artist(s)?', artist));
     label.setObjectText('TITLE', title);
-    label.setObjectText('GENRE', genrePrompt);
+    label.setObjectText('GENRE', prompt('Genre?', genres));
     label.setObjectText('NOTES', notes.trim());
 
     pngData = label.render();
@@ -310,8 +309,7 @@ chrome.extension.sendMessage({}, function() {
       clearInterval(readyStateCheckInterval);
 
       // Don't do anything if the release is not in your collection
-      if ( [...document.querySelectorAll('.cw_block_collection')].length < 1 ||
-           !window.location.href.includes('/release/') ) {
+      if ( [...document.querySelectorAll('.cw_block_collection')].length < 1 || !window.location.href.includes('/release/') ) {
         return;
       }
 
