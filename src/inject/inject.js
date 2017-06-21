@@ -3,6 +3,16 @@
 // any changes to the genre entry
 // ---------------------------------------------------------------------------
 
+/**
+ * @Note:
+ *
+ * This label is sized to 2 5/16 x 4.
+ *
+ * To change it to 2 1/8 x4 change:
+ * `PaperName` to `30323 Shipping`
+ */
+
+
 // ========================================================
 // Label Template XML
 // ========================================================
@@ -11,9 +21,9 @@ let template = '<?xml version="1.0" encoding="utf-8"?>\
                   <DieCutLabel Version="8.0" Units="twips">\
                     <PaperOrientation>Landscape</PaperOrientation>\
                     <Id>Shipping</Id>\
-                    <PaperName>30323 Shipping</PaperName>\
+                    <PaperName>30256 Shipping</PaperName>\
                     <DrawCommands>\
-                      <RoundRectangle X="0" Y="0" Width="3060" Height="5715" Rx="270" Ry="270"/>\
+                      <RoundRectangle X="0" Y="0" Width="3331" Height="5715" Rx="270" Ry="270"/>\
                     </DrawCommands>\
                     <ObjectInfo>\
                       <TextObject>\
@@ -223,7 +233,7 @@ function attachPrintListener(label) {
   document.getElementById('preview').addEventListener('click', function() {
 
     // Print the label
-    if (window.confirm('Print this label?')) {
+    if ( window.confirm('Print this label?') ) {
 
       let paramsXml = dymo.label.framework.createLabelWriterPrintParamsXml({ copies: 1 }),
           labelSetXml = new dymo.label.framework.LabelSetBuilder();

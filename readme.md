@@ -2,7 +2,7 @@
 
 #### About
 
-`discogs-label-maker` will convert your personal notes for releases in your collection into `2 1/8" x 4"` printable labels for the Dymo Labelwriter 450/Turbo printer.
+`discogs-label-maker` will convert your personal notes for releases in your collection into `2 5/16" x 4"` printable labels for the Dymo Labelwriter 450/Turbo printer.
 
 <img src="https://github.com/salcido/discogs-label-maker/blob/master/example.png" alt="Example label" style="width: 200px;"/>
 
@@ -17,4 +17,4 @@ If you are happy with the label, click it and it will be printed from your Dymo 
 
 #### Customization
 
-The `xml` template is formatted to fit a `2 1/8" x 4"` sized label. You can either tweak positioning by changing the `Bounds` fields in each `TextObject` or create your own template from scratch. You'll need to update the `Name` values of each `TextObject` to match what's in `label.setObjectText` methods in `inject.js` so the extension knows which fields to populate with the corresponding information.
+The `xml` template is formatted to fit a `2 5/16" x 4"` sized label. You can either tweak positioning by changing the `Bounds` fields in each `TextObject` or create your own template from scratch. You'll need to update the `Name` values of each `TextObject` to match what's in `label.setObjectText` methods in `inject.js` so the extension knows which fields to populate with the corresponding information.
