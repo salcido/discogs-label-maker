@@ -174,74 +174,13 @@ let genreLinks = [...document.querySelectorAll('a[href^="/style/"]')],
 // extract the genre names from the genre links
 // returns a string like: 'genre name / genre name /...'
 genreLinks.forEach(function(genre, i) {
+
   genres = i < genreLinks.length - 1 ? genres += genre.textContent + ' / ' : genres += genre.textContent;
 });
 
 // ========================================================
-// Functions
+// Functions (Alphabetical)
 // ========================================================
-
-/**
- * Inserts the label preview into the DOM
- * @method insertLabel
- * @param  {string}    data [base64 encoded .png]
- * @return {undefined}
- */
-function insertLabel(data) {
-
-  let page = document.querySelector('.card_in_collection'),
-      img = document.createElement('img');
-
-  img.id = 'preview';
-  img.src = 'data:image/png;base64,' + data;
-  img.style = 'width: 100%; cursor: pointer;';
-
-  page.append(img);
-}
-
-/**
- * Injects the preview link into the DOM
- * @method injectPreviewLink
- * @return {undefined}
- */
-function injectPreviewLink() {
-
-  let btn = document.createElement('button'),
-      div = document.createElement('div'),
-      page = document.querySelector('.card_in_collection');
-
-  div.className = 'section_content';
-  div.style = 'text-align: center;';
-
-  btn.textContent = 'Preview label';
-  btn.id = 'label-btn';
-  btn.className = 'button_blue button';
-  btn.style = 'width: 40%;';
-
-  div.append(btn);
-  page.append(div);
-}
-
-/**
- * Sends the label data to the printer for printing
- * @method attachPreviewListener
- * @type {string} label [The label data]
- * @return {undefined}
- */
-function attachPrintListener(label) {
-
-  document.getElementById('preview').addEventListener('click', function() {
-
-    // Print the label
-    if ( window.confirm('Print this label?') ) {
-
-      let paramsXml = dymo.label.framework.createLabelWriterPrintParamsXml({ copies: 1 }),
-          labelSetXml = new dymo.label.framework.LabelSetBuilder();
-
-      dymo.label.framework.printLabel(printers[0].name, paramsXml, label, labelSetXml);
-    }
-  });
-}
 
 /**
  * Renders a preview of the label into the DOM when clicked
@@ -254,7 +193,7 @@ function attachPreviewListener() {
 
     let
         artist,
-        existingLabel = document.getElementById('preview'),
+        existingLabel = document.querySelector('.label-wrap'),
         info,
         label = dymo.label.framework.openLabelXml(template),
         notes = document.querySelector('.notes_text').innerHTML,
@@ -294,22 +233,158 @@ function attachPreviewListener() {
     label.setObjectText('ARTIST', prompt('Artist(s)?', artist));
     label.setObjectText('TITLE', title);
     label.setObjectText('GENRE', prompt('Genre?', genres));
-    label.setObjectText('NOTES', notes.trim());
+    label.setObjectText('NOTES', fixChars(notes).trim());
 
     pngData = label.render();
 
     if (existingLabel) {
+
       existingLabel.parentNode.removeChild(existingLabel);
     }
 
     insertLabel(pngData);
     attachPrintListener(label);
+    togglePrintButton();
   });
 }
 
+/**
+ * Sends the label data to the printer for printing
+ * @method attachPrintListener
+ * @type {string} label [The label data]
+ * @return {undefined}
+ */
+function attachPrintListener(label) {
+
+  document.getElementById('print-btn').addEventListener('click', function() {
+
+    // Print the label
+    if ( window.confirm('Print this label?') ) {
+
+      let paramsXml = dymo.label.framework.createLabelWriterPrintParamsXml({ copies: 1 }),
+          labelSetXml = new dymo.label.framework.LabelSetBuilder();
+
+      dymo.label.framework.printLabel(printers[0].name, paramsXml, label, labelSetXml);
+    }
+  });
+}
+
+/**
+ * Replaces escaped HTML with normal characters
+ * @method fixChars
+ * @param  {string} text the text to examine
+ * @return {string}
+ */
+function fixChars(text) {
+
+  return text
+         .replace(/&amp;/g, '&')
+         .replace(/&lt;/g, '<')
+         .replace(/&gt;/g, '>')
+         .replace(/&quot;/g, '"');
+}
+
+/**
+ * Injects the preview link into the DOM
+ * @method injectPreviewLink
+ * @return {undefined}
+ */
+function injectPreviewLink() {
+
+  let btn = document.createElement('button'),
+      div = document.createElement('div'),
+      page = document.querySelector('.card_in_collection');
+
+  div.className = 'section_content';
+  div.style.textAlign = 'center';
+
+  btn.textContent = 'Preview label';
+  btn.id = 'label-btn';
+  btn.className = 'button_blue button';
+  btn.style.width = '40%';
+
+  div.append(btn);
+  page.append(div);
+}
+
+/**
+ * Inserts the label preview into the DOM
+ * @method insertLabel
+ * @param  {string}    data base64 encoded .png
+ * @return {undefined}
+ */
+function insertLabel(data) {
+
+  let page = document.querySelector('.card_in_collection'),
+      img = document.createElement('img'),
+      imgWrap = document.createElement('div');
+
+  img.id = 'preview';
+  img.src = 'data:image/png;base64,' + data;
+  img.style.width = '100%'
+
+  imgWrap.className = 'label-wrap';
+  imgWrap.style.position = 'relative';
+
+  imgWrap.append(img);
+  imgWrap.append( makePrintBtn() );
+
+  page.append(imgWrap);
+}
+
+/**
+ * Creates the 'Print label' button markup.
+ * @method makePrintBtn
+ * @return {object}
+ */
+function makePrintBtn() {
+
+  let btn = document.createElement('button');
+
+  btn.textContent = 'Print label';
+  btn.id = 'print-btn';
+  btn.className = 'button_green button';
+
+  btn.style.display = 'none';
+  btn.style.left = '25%';
+  btn.style.position = 'absolute';
+  btn.style.top = '40%';
+  btn.style.width = '40%';
+
+  return btn;
+}
+
+/**
+ * Shows/hides the `Print label` button
+ * @method togglePrintButton
+ * @return {undefined}
+ */
+function togglePrintButton() {
+
+  let label = document.querySelector('.label-wrap'),
+      preview = document.getElementById('preview'),
+      printBtn = document.getElementById('print-btn');
+
+  // Show the print button
+  label.addEventListener('mouseenter', function() {
+
+    printBtn.style.display = 'block';
+    preview.style.opacity = 0.5;
+  });
+
+  // Hide the print button
+  label.addEventListener('mouseleave', function() {
+
+    printBtn.style.display = 'none';
+    preview.style.opacity = 1;
+  });
+}
+
+
 // ========================================================
-// DOM setup
+// Init / DOM setup
 // ========================================================
+
 chrome.extension.sendMessage({}, function() {
 
   let readyStateCheckInterval = setInterval(function() {
@@ -319,7 +394,9 @@ chrome.extension.sendMessage({}, function() {
       clearInterval(readyStateCheckInterval);
 
       // Don't do anything if the release is not in your collection
-      if ( [...document.querySelectorAll('.cw_block_collection')].length < 1 || !window.location.href.includes('/release/') ) {
+      if (
+           [...document.querySelectorAll('.cw_block_collection')].length < 1 ||
+           !window.location.href.includes('/release/') ) {
         return;
       }
 
