@@ -341,15 +341,18 @@ function makePrintBtn() {
 
   let btn = document.createElement('button');
 
-  btn.textContent = 'Print label';
+  btn.textContent = 'Print label?';
   btn.id = 'print-btn';
-  btn.className = 'button_green button';
+  //btn.className = 'button_green button';
 
-  btn.style.display = 'none';
-  btn.style.left = '25%';
+  btn.style.fontSize = '35px';
+  btn.style.fontWeight = 'bold';
+  btn.style.setProperty('color', 'white', 'important');
+  btn.style.setProperty('text-shadow', '0px 2px dimGray');
+  btn.style.opacity = 0;
+  btn.style.left = '23%';
   btn.style.position = 'absolute';
-  btn.style.top = '40%';
-  btn.style.width = '40%';
+  btn.style.top = '36%';
 
   return btn;
 }
@@ -361,22 +364,28 @@ function makePrintBtn() {
  */
 function togglePrintButton() {
 
-  let label = document.querySelector('.label-wrap'),
-      preview = document.getElementById('preview'),
+  let wrap = document.querySelector('.label-wrap'),
+      label = document.getElementById('preview'),
       printBtn = document.getElementById('print-btn');
 
-  // Show the print button
-  label.addEventListener('mouseenter', function() {
+  // Animate fades
+  label.style.transition = 'all 0.3s';
+  printBtn.style.transition = 'opacity 0.3s';
 
-    printBtn.style.display = 'block';
-    preview.style.opacity = 0.5;
+  // Show the print button
+  wrap.addEventListener('mouseenter', function() {
+
+    printBtn.style.opacity = 1;
+    label.style.opacity = 0.5;
+    label.style.filter = 'blur(1px)';
   });
 
   // Hide the print button
-  label.addEventListener('mouseleave', function() {
+  wrap.addEventListener('mouseleave', function() {
 
-    printBtn.style.display = 'none';
-    preview.style.opacity = 1;
+    printBtn.style.opacity = 0;
+    label.style.opacity = 1;
+    label.style.filter = 'blur(0px)';
   });
 }
 
