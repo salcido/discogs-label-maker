@@ -214,7 +214,7 @@ function attachPreviewListener() {
     info[0] = info[0].replace(/\*/g, '');
 
     // clean up artist/title
-    artist = info[0].replace(/\s{1,}/g,'');
+    artist = info[0].slice(0, info[0].length - 2);
     title = info[1].trim();
 
     // clean up notes
