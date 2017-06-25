@@ -214,30 +214,20 @@ function attachPreviewListener() {
     info[0] = info[0].replace(/\*/g, '');
 
     // clean up artist/title
-    artist = info[0].slice(0, info[0].length - 2);
+    artist = info[0].replace(/\s{1,}/g,'');
     title = info[1].trim();
 
     // clean up notes
-    notes = notes.replace(/<br>/g, '\n');
-    notes = notes.replace(/<b>/g, '');
-    notes = notes.replace(/<\/b>/g, '');
-    notes = notes.replace(/<u>/g, '');
-    notes = notes.replace(/<\/u>/g, '');
-    notes = notes.replace(/<i>/g, '');
-    notes = notes.replace(/<\/i>/g, '');
-    notes = notes.replace(/<s>/g, '');
-    notes = notes.replace(/<\/s>/g, '');
-    notes = notes.replace('🎾', '');
-    notes = notes.replace(/⭐️/g, '★');
+    notes = clean(notes).trim();
 
     label.setObjectText('ARTIST', prompt('Artist(s)?', artist));
     label.setObjectText('TITLE', title);
     label.setObjectText('GENRE', prompt('Genre?', genres));
-    label.setObjectText('NOTES', fixChars(notes).trim());
+    label.setObjectText('NOTES', notes);
 
     pngData = label.render();
 
-    if (existingLabel) {
+    if ( existingLabel ) {
 
       existingLabel.parentNode.removeChild(existingLabel);
     }
@@ -270,18 +260,28 @@ function attachPrintListener(label) {
 }
 
 /**
- * Replaces escaped HTML with normal characters
- * @method fixChars
+ * Cleans up the notes so they are suitable for printing
+ * @method clean
  * @param  {string} text the text to examine
  * @return {string}
  */
-function fixChars(text) {
+function clean(text) {
 
-  return text
-         .replace(/&amp;/g, '&')
-         .replace(/&lt;/g, '<')
-         .replace(/&gt;/g, '>')
-         .replace(/&quot;/g, '"');
+  return text.replace(/<br>/g, '\n')
+             .replace(/<b>/g, '')
+             .replace(/<\/b>/g, '')
+             .replace(/<u>/g, '')
+             .replace(/<\/u>/g, '')
+             .replace(/<i>/g, '')
+             .replace(/<\/i>/g, '')
+             .replace(/<s>/g, '')
+             .replace(/<\/s>/g, '')
+             .replace('🎾', '')
+             .replace(/⭐️/g, '★')
+             .replace(/&amp;/g, '&')
+             .replace(/&lt;/g, '<')
+             .replace(/&gt;/g, '>')
+             .replace(/&quot;/g, '"');
 }
 
 /**
@@ -347,11 +347,11 @@ function makePrintBtn() {
 
   btn.style.fontSize = '35px';
   btn.style.fontWeight = 'bold';
+  btn.style.left = '23%';
+  btn.style.opacity = 0;
+  btn.style.position = 'absolute';
   btn.style.setProperty('color', 'white', 'important');
   btn.style.setProperty('text-shadow', '0px 2px dimGray');
-  btn.style.opacity = 0;
-  btn.style.left = '23%';
-  btn.style.position = 'absolute';
   btn.style.top = '36%';
 
   return btn;
