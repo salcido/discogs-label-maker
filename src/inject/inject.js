@@ -169,6 +169,7 @@ let template = '<?xml version="1.0" encoding="utf-8"?>\
 
 let genreLinks = [...document.querySelectorAll('a[href^="/style/"]')],
     genres = '',
+    //releasePage = window.location.href.includes('/release/'),
     printers = dymo.label.framework.getPrinters();
 
 // extract the genre names from the genre links
@@ -220,6 +221,7 @@ function attachPreviewListener() {
     // clean up notes
     notes = clean(notes).trim();
 
+    // populate label with data
     label.setObjectText('ARTIST', prompt('Artist(s)?', artist));
     label.setObjectText('TITLE', title);
     label.setObjectText('GENRE', prompt('Genre?', genres));
@@ -315,9 +317,9 @@ function injectPreviewLink() {
  */
 function insertLabel(data) {
 
-  let page = document.querySelector('.card_in_collection'),
-      img = document.createElement('img'),
-      imgWrap = document.createElement('div');
+  let img = document.createElement('img'),
+      imgWrap = document.createElement('div'),
+      page = document.querySelector('.card_in_collection');
 
   img.id = 'preview';
   img.src = 'data:image/png;base64,' + data;
