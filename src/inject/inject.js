@@ -169,7 +169,6 @@ let template = '<?xml version="1.0" encoding="utf-8"?>\
 
 let genreLinks = [...document.querySelectorAll('a[href^="/style/"]')],
     genres = '',
-    //releasePage = window.location.href.includes('/release/'),
     printers = dymo.label.framework.getPrinters();
 
 // extract the genre names from the genre links
@@ -221,7 +220,6 @@ function attachPreviewListener() {
     // clean up notes
     notes = clean(notes).trim();
 
-    // populate label with data
     label.setObjectText('ARTIST', prompt('Artist(s)?', artist));
     label.setObjectText('TITLE', title);
     label.setObjectText('GENRE', prompt('Genre?', genres));
@@ -295,7 +293,7 @@ function injectPreviewLink() {
 
   let btn = document.createElement('button'),
       div = document.createElement('div'),
-      page = document.querySelector('.card_in_collection');
+      page = document.querySelector('#page_aside .card_in_collection');
 
   div.className = 'section_content';
   div.style.textAlign = 'center';
@@ -319,7 +317,7 @@ function insertLabel(data) {
 
   let img = document.createElement('img'),
       imgWrap = document.createElement('div'),
-      page = document.querySelector('.card_in_collection');
+      page = document.querySelector('#page_aside .card_in_collection');
 
   img.id = 'preview';
   img.src = 'data:image/png;base64,' + data;
@@ -400,13 +398,13 @@ chrome.extension.sendMessage({}, function() {
 
   let readyStateCheckInterval = setInterval(function() {
 
-    if ( document.readyState === 'complete' ) {
+    if ( document.readyState === 'interactive' ) {
 
       clearInterval(readyStateCheckInterval);
 
       // Don't do anything if the release is not in your collection
       if (
-           [...document.querySelectorAll('.cw_block_collection')].length < 1 ||
+           [...document.querySelectorAll('#page_aside .cw_block_collection')].length < 1 ||
            !window.location.href.includes('/release/') ) {
         return;
       }
