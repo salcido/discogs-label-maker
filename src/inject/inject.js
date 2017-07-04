@@ -246,7 +246,7 @@ function attachPreviewListener() {
  */
 function attachPrintListener(label) {
 
-  document.getElementById('print-btn').addEventListener('click', function() {
+  document.getElementById('preview').addEventListener('click', function() {
 
     // Print the label
     if ( window.confirm('Print this label?') ) {
@@ -376,6 +376,7 @@ function togglePrintButton() {
   wrap.addEventListener('mouseenter', function() {
 
     printBtn.style.opacity = 1;
+    label.style.cursor = 'pointer';
     label.style.opacity = 0.5;
     label.style.filter = 'blur(1px)';
   });
