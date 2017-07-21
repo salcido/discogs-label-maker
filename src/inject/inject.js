@@ -246,7 +246,7 @@ function attachPreviewListener() {
  */
 function attachPrintListener(label) {
 
-  document.getElementById('preview').addEventListener('click', function() {
+  document.querySelector('.label-wrap').addEventListener('click', function() {
 
     // Print the label
     if ( window.confirm('Print this label?') ) {
@@ -321,10 +321,11 @@ function insertLabel(data) {
 
   img.id = 'preview';
   img.src = 'data:image/png;base64,' + data;
-  img.style.width = '100%'
+  img.style.width = '100%';
 
   imgWrap.className = 'label-wrap';
   imgWrap.style.position = 'relative';
+  imgWrap.style.cursor = 'pointer';
 
   imgWrap.append(img);
   imgWrap.append( makePrintBtn() );
