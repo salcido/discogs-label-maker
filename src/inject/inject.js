@@ -400,13 +400,12 @@ chrome.extension.sendMessage({}, function() {
 
   let readyStateCheckInterval = setInterval(function() {
 
-    if ( document.readyState === 'interactive' ) {
+    if ( document.readyState !== 'loading' ) {
 
       clearInterval(readyStateCheckInterval);
 
       // Don't do anything if the release is not in your collection
-      if (
-           [...document.querySelectorAll('#page_aside .cw_block_collection')].length < 1 ||
+      if ( [...document.querySelectorAll('#page_aside .cw_block_collection')].length < 1 ||
            !window.location.href.includes('/release/') ) {
         return;
       }
