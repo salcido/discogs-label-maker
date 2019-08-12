@@ -167,7 +167,7 @@ let template = '<?xml version="1.0" encoding="utf-8"?>\
 // Shared vars
 // ========================================================
 
-let genreLinks = [...document.querySelectorAll('a[href^="/style/"]')],
+let genreLinks = [...document.querySelectorAll('.profile a[href^="/style/"]')],
     genres = '',
     printers = dymo.label.framework.getPrinters();
 
