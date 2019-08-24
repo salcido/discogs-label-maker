@@ -276,7 +276,6 @@ function clean(text) {
              .replace(/<\/i>/g, '')
              .replace(/<s>/g, '')
              .replace(/<\/s>/g, '')
-             .replace('🎾', '')
              .replace(/⭐️/g, '★')
              .replace(/&amp;/g, '&')
              .replace(/&lt;/g, '<')
